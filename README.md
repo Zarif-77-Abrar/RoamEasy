@@ -1,11 +1,11 @@
-# RoamEasy 🌍
+# RoamEasy
 
 RoamEasy is a Laravel 12-based travel management platform that connects **tourists** and **admins**.  
 Tourists can browse destinations, filter by city, type, and popularity, while admins can manage destinations and reviews.
 
 ---
 
-## 🚀 Features
+## Features
 - **User Roles:** Admin & Tourist (powered by [Spatie Roles & Permissions](https://spatie.be/docs/laravel-permission))
 - **Authentication:** Login, Signup, Logout (Laravel Breeze/Jetstream)
 - **Destination Browsing:** Filter by city, type, and popularity
@@ -14,16 +14,16 @@ Tourists can browse destinations, filter by city, type, and popularity, while ad
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 - **Backend:** Laravel 12
 - **Frontend:** Blade Templates, Bootstrap/Tailwind CSS
 - **Database:** MySQL/MariaDB
-- **Auth:** Laravel Breeze (or Jetstream)
+- **Auth:** Laravel Breeze
 - **Roles:** Spatie Laravel Permission
 
 ---
 
-## 📦 Installation
+## Installation
 1. **Clone the repository**
    ```bash
    git clone https://github.com/YourUsername/roameasy.git
