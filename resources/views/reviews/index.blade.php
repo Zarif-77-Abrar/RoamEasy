@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-4xl mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-4">Reviews for {{ $destination->name }}</h1>
+        <h1 class="text-2xl font-bold mb-4" style="color:white;font-size:40px">Reviews for {{ $destination->name }}</h1>
 
         <!-- Review list -->
         @if($reviews->count())
@@ -10,7 +10,7 @@
                         <span class="font-semibold">{{ $review->user->name }}</span>
                         <span class="text-yellow-500">★ {{ $review->rating }}</span>
                     </div>
-                    <p>{{ $review->comment }}</p>
+                    <p style="color:white;font-size:20px">{{ $review->comment }}</p>
                     <small class="text-gray-500">{{ $review->created_at->format('d M Y') }}</small>
 
                     @if(auth()->user()->hasRole('admin'))

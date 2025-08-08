@@ -35,9 +35,9 @@
             @forelse ($destinations as $destination)
                 <div class="bg-white p-4 shadow rounded">
                     <!-- Image -->
-                    <img src="{{ $destination->image_url }}" 
+                    {{-- <img src="{{ $destination->image_url }}" 
                         alt="{{ $destination->name }}" 
-                        class="w-full h-40 object-cover mb-2">
+                        class="w-full h-40 object-cover mb-2"> --}}
 
                     <!-- Name -->
                     <h3 class="text-lg font-bold">{{ $destination->name }}</h3>
@@ -48,12 +48,19 @@
                     </p>
 
                     <!-- Description -->
-                    <p class="mt-2 text-sm">{{ Str::limit($destination->description, 100) }}</p>
+                    {{-- <p class="mt-2 text-sm">{{ Str::limit($destination->description, 100) }}</p> --}}
+                    <!-- Rating -->
+                    <p>Rating: {{ number_format($destination->average_rating, 1) ?? 'N/A' }}</p>
 
                     <!-- View Reviews Button -->
                     <a href="{{ route('reviews.showForDestination', $destination->id) }}" 
                     class="bg-blue-500 text-black px-3 py-1 rounded mt-3 inline-block">
                         View Reviews
+                    </a>
+
+                    <a href="{{ route('destinations.show', $destination->id) }}" 
+                        class="bg-blue-600 text-black px-3 py-1 rounded mt-2 inline-block hover:bg-blue-700">
+                        Details
                     </a>
                 </div>
             @empty

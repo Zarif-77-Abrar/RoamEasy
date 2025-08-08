@@ -33,4 +33,9 @@ class DestinationController extends Controller
 
         return view('destinations.index', compact('destinations', 'cities', 'categories'));
     }
+    public function show(Destination $destination)
+    {
+        return view('destinations.show', compact('destination'));
+    }
+
 }

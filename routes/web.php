@@ -44,14 +44,9 @@ Route::middleware(['auth', 'role:tourist'])->group(function () {
 
 Route::get('/destinations', [DestinationController::class, 'index'])->name('destinations.index');
 
+Route::get('/destinations/{destination}', [DestinationController::class, 'show'])->name('destinations.show');
+
 // routes/web.php
 Route::get('/destinations/{destination}/reviews', [ReviewController::class, 'showForDestination'])
     ->name('reviews.showForDestination')
     ->middleware('auth');
-
-
-
-
-
-
-
