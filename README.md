@@ -1,4 +1,4 @@
-# RoamEasy 🌍
+# RoamEasy
 
 RoamEasy is a Laravel 12-based travel management platform that connects **tourists** and **admins**.  
 Tourists can browse destinations, filter by city, type, and popularity, while admins can manage destinations and reviews.
