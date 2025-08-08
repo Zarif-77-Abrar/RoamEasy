@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Destination extends Model
+{
+    protected $table = 'destinations';
+
+    // Allow all attributes
+    protected $guarded = [];
+
+    // app/Models/Destination.php
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    // app/Models/Destination.php
+    public function updateAverageRating()
+    {
+        $avg = $this->reviews()->avg('rating');
+        $this->average_rating = $avg ?? 0;
+        $this->save();
+    }
+
+
+}
