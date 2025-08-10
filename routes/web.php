@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\FavoriteController;
 
 
 Route::get('/', function () {
@@ -50,3 +51,8 @@ Route::get('/destinations/{destination}', [DestinationController::class, 'show']
 Route::get('/destinations/{destination}/reviews', [ReviewController::class, 'showForDestination'])
     ->name('reviews.showForDestination')
     ->middleware('auth');
+
+    
+Route::middleware('auth')->group(function () {
+    Route::post('/favorites/toggle/{destination}', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
+});

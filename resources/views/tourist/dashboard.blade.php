@@ -10,7 +10,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <p>Welcome to your dashboard!</p>
             <a href="{{ route('destinations.index') }}" class="bg-blue-600 text-white px-4 py-2 rounded inline-block hover:bg-blue-700">
-                Browse Destinations
+                Destinations
             </a>
         </div>
     </div>

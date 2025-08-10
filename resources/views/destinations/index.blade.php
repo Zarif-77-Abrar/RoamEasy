@@ -1,6 +1,22 @@
 <x-app-layout>
+
+    <style>
+        .favorite-btn {
+            background: none;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .favorite-btn.favorited {
+            color: gold;
+            border-color: gold;
+        }
+    </style>
+
     <x-slot name="header">
-        <h2 class="text-xl font-semibold text-gray-800">Browse Destinations</h2>
+        <h2 class="text-xl font-semibold text-gray-800">Destinations</h2>
     </x-slot>
 
     <div class="p-6">
@@ -34,11 +50,6 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             @forelse ($destinations as $destination)
                 <div class="bg-white p-4 shadow rounded">
-                    <!-- Image -->
-                    {{-- <img src="{{ $destination->image_url }}" 
-                        alt="{{ $destination->name }}" 
-                        class="w-full h-40 object-cover mb-2"> --}}
-
                     <!-- Name -->
                     <h3 class="text-lg font-bold">{{ $destination->name }}</h3>
 
@@ -47,9 +58,6 @@
                         {{ $destination->location }} — {{ $destination->category }}
                     </p>
 
-                    <!-- Description -->
-                    {{-- <p class="mt-2 text-sm">{{ Str::limit($destination->description, 100) }}</p> --}}
-                    <!-- Rating -->
                     <p>Rating: {{ number_format($destination->average_rating, 1) ?? 'N/A' }}</p>
 
                     <!-- View Reviews Button -->
@@ -62,6 +70,15 @@
                         class="bg-blue-600 text-black px-3 py-1 rounded mt-2 inline-block hover:bg-blue-700">
                         Details
                     </a>
+                    {{-- {{ dd($destination) }} --}}
+                    @role('tourist')
+                        <button 
+                            class="favorite-btn"
+                            data-url="{{ route('favorites.toggle', $destination->id) }}"
+                        >
+                            {{ $destination->isFavoritedBy(auth()->user()) ? '★ Unfavorite' : '☆ Favorite' }}
+                        </button>
+                    @endrole
                 </div>
             @empty
                 <p>No destinations found.</p>
@@ -71,4 +88,30 @@
             {{ $destinations->withQueryString()->links() }}
         </div>
     </div>
+    <script>
+        document.querySelectorAll('.favorite-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const url = this.dataset.url;
+        
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'added') {
+                        this.classList.add('favorited');
+                        this.textContent = '★ Unfavorite';
+                    } else {
+                        this.classList.remove('favorited');
+                        this.textContent = '☆ Favorite';
+                    }
+                });
+            });
+        });
+    </script>
+        
 </x-app-layout>
