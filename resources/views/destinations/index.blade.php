@@ -48,6 +48,15 @@
         </form>              
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            @role('admin')
+                <div class="mb-4">
+                    <a href="{{ route('admin.destinations.manage') }}" class="btn btn-primary" style = "color:white">
+                        Manage Destinations
+                    </a>
+                </div>
+            @endrole
+
             @forelse ($destinations as $destination)
                 <div class="bg-white p-4 shadow rounded">
                     <!-- Name -->

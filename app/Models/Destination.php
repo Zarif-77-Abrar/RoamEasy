@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Destination extends Model
@@ -9,6 +10,19 @@ class Destination extends Model
     protected $table = 'destinations';
 
     // Allow all attributes
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'location',
+        'description',
+        'category',
+        'img_url',
+        'latitude',
+        'longitude',
+        'created_by'
+    ];
+    
     protected $guarded = [];
 
     // app/Models/Destination.php

@@ -37,5 +37,5 @@ class DestinationController extends Controller
     {
         return view('destinations.show', compact('destination'));
     }
-
+    
 }
