@@ -32,6 +32,36 @@
           </div>
         </div>
       </div>
+      <!-- Hotels Section -->
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-6" style="color:white;font-size:32px">
+            Hotels in {{ $destination->name }}
+        </h2>
+
+        @if($destination->hotels->isEmpty())
+            <p class="text-gray-400" style="font-size:20px">
+                No hotels available for this destination yet.
+            </p>
+        @else
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($destination->hotels as $hotel)
+                    <div class="bg-gray-800 rounded-lg shadow p-4">
+                        <h3 class="text-xl font-semibold mb-2" style="color:white">
+                            {{ $hotel->name }}
+                        </h3>
+                        @if($hotel->image_url)
+                            <img src="{{ $hotel->image_url }}" 
+                                 alt="{{ $hotel->name }}" 
+                                 class="w-full h-40 object-cover rounded mb-3">
+                        @endif
+                        <p class="text-gray-300 mb-2">{{ $hotel->details }}</p>
+                        <p style="color:white"><strong>Price:</strong> ${{ $hotel->price }}</p>
+                        <p style="color:white"><strong>Rating:</strong> {{ $hotel->rating }}</p>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+      </div>
     </div>
   </x-app-layout>
   

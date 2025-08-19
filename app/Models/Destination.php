@@ -17,7 +17,7 @@ class Destination extends Model
         'location',
         'description',
         'category',
-        'img_url',
+        'image_url',
         'latitude',
         'longitude',
         'created_by'
@@ -55,4 +55,10 @@ class Destination extends Model
     {
         return $this->hasMany(Favorite::class);
     }
+
+    public function hotels()
+    {
+        return $this->hasMany(Hotel::class);
+    }
+
 }

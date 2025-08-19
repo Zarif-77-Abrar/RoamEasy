@@ -7,6 +7,7 @@ use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\AdminDestinationController;
+use App\Http\Controllers\AdminHotelController;
 // use App\Http\Controllers\Admin\DestinationManageController;
 
 
@@ -69,4 +70,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('/destinations/{id}', [AdminDestinationController::class, 'update'])->name('destinations.update');
     Route::delete('/destinations/{id}', [AdminDestinationController::class, 'destroy'])->name('destinations.destroy');
     Route::get('/destinations/manage', [AdminDestinationController::class, 'manage'])->name('destinations.manage');
+    Route::resource('hotels', AdminHotelController::class);
 });
+
+

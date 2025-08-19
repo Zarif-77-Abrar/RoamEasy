@@ -17,7 +17,12 @@
         <a href="{{ route('destinations.index') }}" 
            class="bg-blue-600 text-white px-4 py-2 rounded inline-block hover:bg-blue-700">
             Listed Destinations
-        </a
+        </a>
+
+        <a href="{{ route('admin.hotels.index') }}"
+            class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+            Manage Hotels
+        </a>
 
     </div>
 </x-app-layout>

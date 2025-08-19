@@ -37,6 +37,13 @@
             </div>
 
             <div class="mb-4">
+                <label for="image_url" class="block text-sm font-medium text-gray-700">Image URL</label>
+                <input type="url" name="image_url" id="image_url" value="{{ old('image_url') }}"
+                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                @error('image_url') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+            </div>
+
+            <div class="mb-4">
                 <label for="latitude" class="block text-sm font-medium text-gray-700">Latitude</label>
                 <input type="text" name="latitude" id="latitude" value="{{ old('latitude') }}"
                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">

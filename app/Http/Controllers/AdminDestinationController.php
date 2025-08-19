@@ -34,7 +34,7 @@ class AdminDestinationController extends Controller
             'description' => 'nullable|string',
             'category'    => 'required|string|max:255',
             'image_url'   => 'nullable|url',
-            'image_file'  => 'nullable|image|max:2048', // file upload optional
+            // 'image_file'  => 'nullable|image|max:2048', // file upload optional
             'latitude'    => 'required|numeric|between:-90,90',
             'longitude'   => 'required|numeric|between:-180,180',
         ]);

@@ -35,6 +35,7 @@ class DestinationController extends Controller
     }
     public function show(Destination $destination)
     {
+        $destination->load('hotels'); // eager load hotels
         return view('destinations.show', compact('destination'));
     }
     
