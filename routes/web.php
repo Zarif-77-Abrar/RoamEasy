@@ -8,6 +8,9 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\AdminDestinationController;
 use App\Http\Controllers\AdminHotelController;
+use App\Http\Controllers\ItineraryController;
+use App\Http\Controllers\ItineraryDayController;
+
 // use App\Http\Controllers\Admin\DestinationManageController;
 
 
@@ -37,14 +40,47 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->name('admin.reviews.destroy');
 });
 
+
 Route::middleware(['auth', 'role:tourist'])->group(function () {
+    
     Route::get('/tourist/dashboard', function () {
         return view('tourist.dashboard');
     })->name('tourist.dashboard');
-    // Tourist review submission
+    
     Route::post('/destinations/{destination}/reviews', [ReviewController::class, 'store'])
         ->name('reviews.store');
+    
+    
+    Route::get('/itineraries', [ItineraryController::class, 'index'])->name('itineraries.index');
+    
+    Route::get('/itineraries/create', [ItineraryController::class, 'create'])->name('itineraries.create');
+    
+    Route::post('/itineraries', [ItineraryController::class, 'store'])->name('itineraries.store');
+
+    Route::get('/itineraries/{itinerary}', [ItineraryController::class, 'show'])
+        ->name('itineraries.show'); // Manage Days page
+
+    Route::delete('/itineraries/{itinerary}', [ItineraryController::class, 'destroy'])->name('itineraries.destroy');
+
+    // Itinerary days
+    Route::get('/itineraries/{itinerary}/days/create', [ItineraryDayController::class, 'create'])
+    ->name('itineraries.days.create');
+
+    Route::post('/itineraries/{itinerary}/days', [ItineraryDayController::class, 'store'])
+    ->name('itineraries.days.store');
+
+    Route::delete('/itineraries/{itinerary}/days/{day}', [ItineraryDayController::class, 'destroy'])
+    ->name('itineraries.days.destroy');
+    
+    Route::get('/itineraries/{itinerary}/details', [ItineraryController::class, 'details'])
+    ->name('itineraries.details');
+
+
 });
+
+
+
+
 
 Route::get('/destinations', [DestinationController::class, 'index'])->name('destinations.index');
 
@@ -72,5 +108,4 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/destinations/manage', [AdminDestinationController::class, 'manage'])->name('destinations.manage');
     Route::resource('hotels', AdminHotelController::class);
 });
-
 

@@ -23,8 +23,6 @@ class AdminDestinationController extends Controller
     {
         return view('admin.destinations.create');
     }
-
-
     
     public function store(Request $request)
     {

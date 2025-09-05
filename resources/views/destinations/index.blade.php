@@ -29,7 +29,7 @@
                     <option value="{{ $city }}" @selected(request('city') == $city)>{{ $city }}</option>
                 @endforeach
             </select>
-
+            
             <select name="category">
                 <option value="">-- Select Category --</option>
                 @foreach(($categories ?? collect()) as $category)
@@ -43,8 +43,22 @@
                     <option value="{{ $i }}" @selected(request('min_rating') == $i)>{{ $i }} stars</option>
                 @endfor
             </select>
+            @role('tourists')
+                <div class="mb-4 flex space-x-3">
+                    <a href="{{ route('destinations.index') }}" 
+                    class="px-4 py-2 bg-indigo-500 text-white rounded">
+                    All Destinations
+                    </a>
+                
+                    <a href="{{ route('destinations.index', ['favorites' => 1]) }}" 
+                    class="px-4 py-2 bg-indigo-500 text-white rounded">
+                    My Favorites
+                    </a>
+                </div>
+            @endrole
 
-            <button type="submit">Filter</button>
+            
+            <button class="px-4 py-2 bg-indigo-500 text-white rounded" type="submit" style="color:white">Filter</button>
         </form>              
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -90,13 +104,26 @@
                     @endrole
                 </div>
             @empty
-                <p>No destinations found.</p>
+                <p style="color:white">No destinations found.</p>
             @endforelse
         </div>
         <div class="mt-6">
             {{ $destinations->withQueryString()->links() }}
         </div>
+        @role('tourist')  
+            <a href="{{ route('tourist.dashboard') }}"
+                class="px-4 py-2 bg-indigo-500 text-white rounded" style="color:white">
+                Dashboard
+            </a>
+        @endrole
+        @role('admin')
+            <a href="{{ route('admin.dashboard') }}"
+                class="px-4 py-2 bg-indigo-500 text-white rounded" style="color:white">
+                Admin Dashboard
+            </a>
+        @endrole
     </div>
+    
     <script>
         document.querySelectorAll('.favorite-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -122,5 +149,4 @@
             });
         });
     </script>
-        
 </x-app-layout>

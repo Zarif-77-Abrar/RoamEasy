@@ -14,9 +14,9 @@
   
           <p class="mt-4 text-gray-700 leading-relaxed" style="color:white;font-size:25px">{{ $destination->description }}</p>
   
-          <a href="{{ route('destinations.index') }}" class="inline-block mt-6 text-blue-600 hover:underline" style="color:white;font-size:20px">
+          {{-- <a href="{{ route('destinations.index') }}" class="inline-block mt-6 text-blue-600 hover:underline" style="color:white;font-size:20px">
             ← Back to destinations
-          </a>
+          </a> --}}
         </div>
   
         <!-- Image column (fixed size) -->
@@ -32,6 +32,16 @@
           </div>
         </div>
       </div>
+      
+      <!-- Mini Map -->
+      <div class="mt-8">
+        <h2 class="text-2xl font-bold mb-4" style="color:white;font-size:28px">
+          Map Location
+        </h2>
+        <div id="map" style="height: 300px; border-radius: 8px; overflow: hidden;"></div>
+      </div>
+
+      
       <!-- Hotels Section -->
       <div class="mt-12">
         <h2 class="text-2xl font-bold mb-6" style="color:white;font-size:32px">
@@ -39,22 +49,22 @@
         </h2>
 
         @if($destination->hotels->isEmpty())
-            <p class="text-gray-400" style="font-size:20px">
+            <p class="text-white-400" style="font-size:20px">
                 No hotels available for this destination yet.
             </p>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($destination->hotels as $hotel)
                     <div class="bg-gray-800 rounded-lg shadow p-4">
-                        <h3 class="text-xl font-semibold mb-2" style="color:white">
+                        <h2 class="text-xl font-semibold mb-2" style="color:white">
                             {{ $hotel->name }}
-                        </h3>
+                        </h2>
                         @if($hotel->image_url)
                             <img src="{{ $hotel->image_url }}" 
                                  alt="{{ $hotel->name }}" 
                                  class="w-full h-40 object-cover rounded mb-3">
                         @endif
-                        <p class="text-gray-300 mb-2">{{ $hotel->details }}</p>
+                        <p class="text-white-300 mb-2" style="color:white">{{ $hotel->details }}</p>
                         <p style="color:white"><strong>Price:</strong> ${{ $hotel->price }}</p>
                         <p style="color:white"><strong>Rating:</strong> {{ $hotel->rating }}</p>
                     </div>
@@ -63,5 +73,40 @@
         @endif
       </div>
     </div>
-  </x-app-layout>
+
+    <div>
+      <a href="{{ route('destinations.index') }}" class="inline-block mt-6 text-blue-600 hover:underline" style="color:white;font-size:20px">
+        ← Back to destinations
+      </a>
+    </div>
+
+
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var lat = {{ $destination->latitude ?? '0' }};
+        var lng = {{ $destination->longitude ?? '0' }};
+    
+        // Ensure values are valid
+        if (!lat || !lng) {
+            console.error("Invalid coordinates:", lat, lng);
+            return;
+        }
+    
+        var map = L.map('map').setView([lat, lng], 13);
+    
+        // Tile layer (OpenStreetMap free tiles)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+    
+        // Marker at destination
+        L.marker([lat, lng]).addTo(map)
+            .bindPopup("<b>{{ $destination->name }}</b><br>{{ $destination->location }}")
+            .openPopup();
+    });
+    </script>
+</x-app-layout>
   

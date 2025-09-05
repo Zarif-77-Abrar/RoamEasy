@@ -28,8 +28,16 @@ class DestinationController extends Controller
             $query->where('average_rating', '>=', $request->min_rating);
         }
 
+        if ($request->boolean('favorites') && auth()->check()) {
+            $favoriteIds = auth()->user()->favorites()->pluck('destination_id');
+            $query->whereIn('id', $favoriteIds);
+        }
+
         // keep query-string when paginating
-        $destinations = $query->paginate(10)->appends($request->only(['city','category','min_rating']));
+        $destinations = $query->paginate(10)->appends($request->only(['city','category','min_rating',]));
+
+        $cities = Destination::select('location')->distinct()->pluck('location');
+        $categories = Destination::select('category')->distinct()->pluck('category');
 
         return view('destinations.index', compact('destinations', 'cities', 'categories'));
     }
@@ -38,5 +46,4 @@ class DestinationController extends Controller
         $destination->load('hotels'); // eager load hotels
         return view('destinations.show', compact('destination'));
     }
-    
 }

@@ -48,9 +48,6 @@ class Destination extends Model
         return $this->favorites()->where('user_id', $user->id)->exists();
     }
 
-    /**
-     * Define favorites relationship.
-     */
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
