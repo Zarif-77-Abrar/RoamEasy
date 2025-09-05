@@ -38,7 +38,7 @@
         <h2 class="text-2xl font-bold mb-4" style="color:white;font-size:28px">
           Map Location
         </h2>
-        <div id="map" style="height: 300px; border-radius: 8px; overflow: hidden;"></div>
+        <div id="map" style="height: 300px ; border-radius: 8px; overflow: hidden;"></div>
       </div>
 
       
@@ -49,7 +49,7 @@
         </h2>
 
         @if($destination->hotels->isEmpty())
-            <p class="text-white-400" style="font-size:20px">
+            <p class="text-white-400" style="color:white font-size:20px">
                 No hotels available for this destination yet.
             </p>
         @else

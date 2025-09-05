@@ -43,7 +43,7 @@
                     <option value="{{ $i }}" @selected(request('min_rating') == $i)>{{ $i }} stars</option>
                 @endfor
             </select>
-            @role('tourists')
+            @role('tourist')
                 <div class="mb-4 flex space-x-3">
                     <a href="{{ route('destinations.index') }}" 
                     class="px-4 py-2 bg-indigo-500 text-white rounded">
@@ -57,7 +57,6 @@
                 </div>
             @endrole
 
-            
             <button class="px-4 py-2 bg-indigo-500 text-white rounded" type="submit" style="color:white">Filter</button>
         </form>              
         
